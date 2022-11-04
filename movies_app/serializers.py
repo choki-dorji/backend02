@@ -1,6 +1,3 @@
-from dataclasses import field
-from platform import platform
-from wsgiref.validate import validator
 from rest_framework import serializers
 from .models import  User, Marriage, ChildData
 # #shorter way

@@ -1,4 +1,3 @@
-from tkinter.ttk import Style
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
