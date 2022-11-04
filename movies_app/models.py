@@ -55,6 +55,14 @@ class ChildData(models.Model):
         return self.Child_name
 
 
+class Pass(models.Model):
+    user  = models.OneToOneField(User, on_delete=models.CASCADE)
+    rea = [
+        ('Timber', 'Timber'),
+        ('Stone', 'Stone')
+        ]
+    reason= models.CharField(max_length=45, choices = rea)
+    status = models.BooleanField(default=False)
 
 
 

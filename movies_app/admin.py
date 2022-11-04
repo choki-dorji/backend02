@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ChildData, Marriage, User
+from .models import ChildData, Marriage, User, Pass
 from django.core.mail import EmailMessage
 from django.conf import settings
 # Register your models here.
@@ -8,15 +8,10 @@ from django.conf import settings
 @admin.register(User)
 class MaleUserDataAdmin(admin.ModelAdmin):
     list_display = ['CID','Name', 'email', 'Village', 'Chiwog', 'HouseHoldNo', 'contact_number', 'status']
-    # list_filter = ['CID']
     search_fields = ['CID']
     actions = ['make_published']
-    # print(list_display[0])
-
-    # print(list_display[0])
     def make_published(self, request, queryset):
         queryset.update(status=True)
-
         for obj in queryset:
             print("Hello", obj.email)
             email1 = EmailMessage(
@@ -48,5 +43,64 @@ class MaleUserDataAdmin(admin.ModelAdmin):
 
 # admin.site.register(Review)
 # admin.site.register(User)
-admin.site.register(Marriage)
-admin.site.register(ChildData)
+@admin.register(Marriage)
+class MarriageUserDataAdmin(admin.ModelAdmin):
+    list_display = ['MarriageID','YOUR_CId', 'Spouce_ID', 'Marriage_certificate', 'status']
+    search_fields = ['YOUR_CId']
+    actions = ['make_published']
+    def make_published(self, request, queryset):
+        queryset.update(status=True)
+        for obj in queryset:
+            print("Hello", obj.YOUR_CId.email)
+            # email1 = EmailMessage(
+            #     "Gewog Management System",
+            #     "Hello " + obj.Name + " we have verified your data and you have successfully added your marriage data to our system",
+            #     settings.EMAIL_HOST_USER,
+            #     # [MaleUserData.email],
+            #     [obj.email]
+            #     )
+            # email1.fail_silently = False
+            # email1.send()
+
+
+
+
+@admin.register(ChildData)
+class ChildDataAdmin(admin.ModelAdmin):
+    list_display = ['Child_name','DOB_child', 'Marriage_ID', 'birth_certificate', 'status']
+    # search_fields = ['CID']
+    actions = ['make_published']
+    def make_published(self, request, queryset):
+        queryset.update(status=True)
+        for obj in queryset:
+            print("Hello", obj.Marriage_ID.YOUR_CId.email)
+            # email1 = EmailMessage(
+            #     "Gewog Management System",
+            #     "Hello " + obj.Name + " You have successfully added your data.",
+            #     settings.EMAIL_HOST_USER,
+            #     # [MaleUserData.email],
+            #     [obj.email]
+            #     )
+            # email1.fail_silently = False
+            # email1.send()
+
+
+
+@admin.register(Pass)
+class PassDataAdmin(admin.ModelAdmin):
+    list_display = ['user','reason', 'status']
+    # search_fields = ['CID']
+    actions = ['make_published']
+    def make_published(self, request, queryset):
+        queryset.update(status=True)
+        for obj in queryset:
+            print("Hello", obj.user.email)
+            # email1 = EmailMessage(
+            #     "Gewog Management System",
+            #     "Hello " + obj.Name + " You have successfully added your data.",
+            #     settings.EMAIL_HOST_USER,
+            #     # [MaleUserData.email],
+            #     [obj.email]
+            #     )
+            # email1.fail_silently = False
+            # email1.send()
